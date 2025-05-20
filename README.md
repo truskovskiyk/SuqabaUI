@@ -1,10 +1,10 @@
 ### The first simulation sofware with built-in Quality Control
 
 [Suqaba Website](https://suqaba.com) •
-[Suqaba Tutorials](https://yt.link.com) •
+[Suqaba Tutorials](https://youtube.com/playlist?list=PLDs89bTacmzVPuK0SwfxOo5KqCiULLm3x&si=awPtJZR_IcqfcAse) •
 [FreeCAD Documentation](https://wiki.freecad.org) •
 [FreeCAD Forum](https://forum.freecad.org/) •
-[Bug tracker](https://github.com/clementvella/SuqabaUI/issues)
+[Bug tracker](https://github.com/suqaba/SuqabaUI/issues)
 
 <a href="https://suqaba.com"><img src="/src/Gui/Icons/freecadsplash_2x.png" width="800"/></a>
 
@@ -51,7 +51,7 @@ Installing
 ----------
 
 Precompiled packages for stable releases is available for Windows on the
-[Releases page](https://github.com/clementvella/SuqabaUI/releases).
+[Releases page](https://github.com/suqaba/SuqabaUI/releases).
 
 For Linux and macOS, the FreeCADxSuqaba UI will have to be compiled from sources
 (see section below). You can also compile the UI from sources on Windows if need be.
