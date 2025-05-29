@@ -11,7 +11,7 @@
 Overview
 --------
 
-* **Automated mesh generation and refinement** No more manual meshing and time-consumming
+* **Automated mesh generation and refinement** No more manual meshing and time-consuming
 convergence studies. Get straight to decision-making at full speed.
 
 * **Error-driven adaptive meshing** Simulation modeling is not just about speed,
