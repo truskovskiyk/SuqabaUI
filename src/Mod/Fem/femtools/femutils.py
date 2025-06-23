@@ -376,11 +376,12 @@ def expandParentObject():
     """expands parent and selected obj in tree view"""
     trees = FreeCADGui.getMainWindow().findChildren(QtGui.QTreeWidget)
     for tree in trees:
-        items = tree.selectedItems()
-        if items == []:
+        try:
+            items = tree.selectedItems()
+            for item in items:
+                tree.expandItem(item)
+        except:
             continue
-        for item in items:
-            tree.expandItem(item)
 
 
 def getOutputWinColor(type):
