@@ -1,4 +1,4 @@
-### The first simulation sofware with built-in Quality Control
+### The first simulation sofware with built-in Certified Error Verification
 
 [Suqaba Website](https://suqaba.com) •
 [Suqaba Tutorials](https://youtube.com/playlist?list=PLDs89bTacmzVPuK0SwfxOo5KqCiULLm3x&si=awPtJZR_IcqfcAse) •
