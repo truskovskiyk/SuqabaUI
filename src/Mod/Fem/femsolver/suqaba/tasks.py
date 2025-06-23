@@ -463,7 +463,8 @@ class Results(run.Results, QtCore.QObject):
                 else:
                     json_res = response.json()
                     if json_res.get("not-ready") is not None:
-                        self.pushStatus(f"{json_res.get("not-ready")}\n")
+                        not_ready_status = json_res.get("not-ready")
+                        self.pushStatus(f"{not_ready_status}\n")
                     else:
                         self.pushStatus(f"Error downloading result: {response.status_code} {response.reason}\n")
                 
