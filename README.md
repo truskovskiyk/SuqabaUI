@@ -1,119 +1,298 @@
-### The first simulation sofware with built-in Certified Error Verification
+# Suqaba Web UI
 
-[Suqaba Website](https://suqaba.com) •
-[Suqaba Tutorials](https://youtube.com/playlist?list=PLDs89bTacmzVPuK0SwfxOo5KqCiULLm3x&si=awPtJZR_IcqfcAse) •
-[FreeCAD Documentation](https://wiki.freecad.org) •
-[FreeCAD Forum](https://forum.freecad.org/) •
-[Bug tracker](https://github.com/suqaba/SuqabaUI/issues)
+A modern web interface for Suqaba - the first simulation software with built-in Certified Error Verification. This project provides a React-based frontend and FastAPI backend for managing FEM simulations with automated mesh generation and error-driven adaptive meshing.
 
-<a href="https://suqaba.com"><img src="/src/Gui/Icons/freecadsplash_2x.png" width="800"/></a>
+## Features
 
-Overview
---------
+### Core Capabilities
+- **Automated Mesh Generation**: No more manual meshing and time-consuming convergence studies
+- **Certified Error Verification**: Strict and effective bounds on discretization error
+- **Quality Oracle**: Confidence indicator for simulation results
+- **Cloud-native Platform**: Access to computing resources via SaaS model
+- **Error-driven Adaptive Meshing**: Mesh refinement based on certified error estimation
 
-* **Automated mesh generation and refinement** No more manual meshing and time-consuming
-convergence studies. Get straight to decision-making at full speed.
+### Web Interface Features
+- **User Authentication**: Secure login and registration system
+- **Simulation Management**: Create, monitor, and manage FEM simulations
+- **File Upload**: Support for STEP, IGES, and FEM input files
+- **Real-time Monitoring**: Track job status (queued, processing, completed)
+- **Results Visualization**: View simulation results and Quality Oracle metrics
+- **Responsive Design**: Modern, mobile-friendly interface
 
-* **Error-driven adaptive meshing** Simulation modeling is not just about speed,
-it is about quality and trust in digital design. Our mesh is refined with a
-certified error estimation, i.e. some strict and effective bounds on the
-discretization error are computed.
+## Technology Stack
 
-* **Cloud-native platform** Lack of compute resources must never prevent access
-to knowledge about the mechanical behavior of your designs. We make discovery
-accessible to everyone. Running analysis with our solver does not require any
-personal data. After the computation is performed, you can remove your data
-from your cloud storage: your data, your choice.
+### Frontend
+- **React 18** with TypeScript
+- **Material-UI (MUI)** for components and styling
+- **React Router** for navigation
+- **Axios** for API communication
+- **React Query** for state management
+- **React Dropzone** for file uploads
+- **Three.js** for 3D visualization (planned)
 
-* **Freedom to build what you want** The UI is based upon FreeCAD, an open-source
-parametric 3D modeler made primarily to design real-life objects of any size. 
-Parametric modeling allows you to easily modify your design by going back into 
-your model history to change its parameters. The Suqaba team is grateful to
-everyone involved in the FreeCAD project.
+### Backend
+- **FastAPI** with Python 3.11+
+- **SQLAlchemy** for database ORM
+- **PostgreSQL** for data storage
+- **JWT** for authentication
+- **Celery** for background tasks
+- **Redis** for caching and task queue
 
-Features accessible in the version beta 1.0
---------
+## Project Structure
 
-<a href="https://suqaba.com"><img src="/src/Gui/Icons/freecadabout.png" height="175px"></a>
+```
+suqaba-web-ui/
+├── web-ui/                    # React frontend
+│   ├── public/
+│   │   ├── components/        # Reusable UI components
+│   │   ├── contexts/          # React contexts (auth, etc.)
+│   │   ├── pages/             # Page components
+│   │   ├── services/          # API services
+│   │   └── utils/             # Utility functions
+│   └── package.json
+├── backend/                   # FastAPI backend
+│   ├── app/
+│   │   ├── api/               # API routes
+│   │   ├── core/              # Core functionality
+│   │   ├── models/            # Database models
+│   │   ├── schemas/           # Pydantic schemas
+│   │   └── services/          # Business logic
+│   ├── main.py                # FastAPI app entry point
+│   └── requirements.txt
+└── README.md
+```
 
-In the framework of our version beta 1.0, users have access to the following features:
-- Static linear elastic simulation for structural analysis
-- Automated mesh generation and refinement, based on a certified error estimator
-- Quality Oracle: an indicator of the confidence level in simulation results
-- Issuance of quality certificates
-- Access to computing resources (SaaS model, _Simulation_ as a Service)
-- Dedicated UI
-  - 3D geometry design (either by drawing parts into the UI or importing them)
-  - Model setup with a materials and boundary condition library
-- Integrated Python scripting capabilities for workflow customization
+## Prerequisites
 
-Installing
-----------
+- **Node.js** 16+ and npm/yarn
+- **Python** 3.11+
+- **PostgreSQL** 12+
+- **Redis** 6+ (optional, for caching and background tasks)
 
-Precompiled packages for stable releases is available for Windows on the
-[Releases page](https://github.com/suqaba/SuqabaUI/releases).
+## Installation & Setup
 
-For Linux and macOS, the FreeCADxSuqaba UI will have to be compiled from sources
-(see section below). You can also compile the UI from sources on Windows if need be.
+### 1. Clone the Repository
 
-**Note**: To visualize simulation results (e.g., Quality Oracle, displacement and stress fields),
-extract field values and perform post-processing tasks like warping, clipping, and animation,
-you will need to install [ParaView](https://www.paraview.org/download/).
+```bash
+git clone <repository-url>
+cd suqaba-web-ui
+```
 
-Compiling
----------
+### 2. Backend Setup
 
-FreeCADxSuqaba requires several dependencies to correctly compile for development and
-production builds. The following pages contain updated build instructions for
-their respective platforms:
+```bash
+# Navigate to backend directory
+cd backend
 
-- [Linux](https://wiki.freecad.org/Compile_on_Linux)
-- [Windows](https://wiki.freecad.org/Compile_on_Windows)
-- [macOS](https://wiki.freecad.org/Compile_on_MacOS)
-- [MinGW](https://wiki.freecad.org/Compile_on_MinGW)
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-**Note**: The "python-decouple" package must also be installed in the Python environment
-that the UI runs with.
+# Install dependencies
+pip install -r requirements.txt
 
-Reporting Issues
----------
+# Set up environment variables
+cp .env.example .env
+# Edit .env file with your database and other configuration
+```
 
-To report an issue please:
+#### Environment Variables (.env)
 
-- If the issue seems to originate from the integrated Suqaba solver, please, contact us at support@suqaba.com;
-- Explain step-by-step how to reproduce the issue; 
-- Consider posting to the [Forum](https://forum.freecad.org), [Discord](https://discord.com/invite/w2cTKGzccC) channel, or [Reddit](https://www.reddit.com/r/FreeCAD) to verify the issue; 
-- Search the existing [issues](https://github.com/FreeCAD/FreeCAD/issues) for potential duplicates;
-- Upload an example file (FCStd as ZIP file) to demonstrate the problem.
+```env
+# Database
+DATABASE_URL=postgresql://username:password@localhost/suqaba_db
 
-For more details see:
+# Security
+SECRET_KEY=your-super-secret-key-change-in-production
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 
-- [Bug Tracker](https://github.com/FreeCAD/FreeCAD/issues)
-- [Reporting Issues and Requesting Features](https://github.com/FreeCAD/FreeCAD/issues/new/choose)
-- [Contributing](https://github.com/FreeCAD/FreeCAD/blob/main/CONTRIBUTING.md)
-- [Help Forum](https://forum.freecad.org/viewforum.php?f=3)
-- [Developers Handbook](https://freecad.github.io/DevelopersHandbook/)
+# Suqaba API
+SUQABA_API_URL=https://api.suqaba.com
+SUQABA_WEB_URL=https://suqaba.com
 
-Usage & Getting Help regarding FreeCAD-related features
---------------------
+# CORS
+ALLOWED_HOSTS=["http://localhost:3000"]
 
-The FreeCAD wiki contains documentation on 
-general FreeCAD usage, Python scripting, and development.
-View these pages for more information:
+# File Storage
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE=104857600  # 100MB
 
-- [Getting started](https://wiki.freecad.org/Getting_started)
-- [Features list](https://wiki.freecad.org/Feature_list)
-- [Frequent questions](https://wiki.freecad.org/FAQ/en)
-- [Workbenches](https://wiki.freecad.org/Workbenches)
-- [Scripting](https://wiki.freecad.org/Power_users_hub)
-- [Development](https://wiki.freecad.org/Developer_hub)
+# Redis (optional)
+REDIS_URL=redis://localhost:6379
+```
 
-The [FreeCAD forum](https://forum.freecad.org) is a great place
-to find help and solve specific problems when learning to use FreeCAD.
+#### Database Setup
 
-Disclaimer
---------------------
+```bash
+# Create PostgreSQL database
+createdb suqaba_db
 
-This project is not affiliated with, endorsed by, or sponsored by the FreeCAD project
-or its contributors. Suqaba gratefully acknowledges the outstanding work of the FreeCAD
-community and has integrated its cloud-native solver into the FreeCAD platform.
+# Run database migrations (if using Alembic)
+alembic upgrade head
+```
+
+### 3. Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd web-ui
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+# Edit .env file with API URL
+```
+
+#### Frontend Environment Variables (.env)
+
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+```
+
+## Running the Application
+
+### 1. Start the Backend
+
+```bash
+cd backend
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+python main.py
+```
+
+The backend API will be available at `http://localhost:8000`
+
+### 2. Start the Frontend
+
+```bash
+cd web-ui
+npm start
+```
+
+The frontend will be available at `http://localhost:3000`
+
+### 3. Access the Application
+
+1. Open your browser and navigate to `http://localhost:3000`
+2. Register a new account or login with existing credentials
+3. Start creating and managing your FEM simulations!
+
+## API Documentation
+
+The FastAPI backend automatically generates interactive API documentation:
+
+- **Swagger UI**: `http://localhost:8000/docs`
+- **ReDoc**: `http://localhost:8000/redoc`
+
+## Integration with Suqaba Solver
+
+This web UI integrates with the existing Suqaba FEM solver through:
+
+1. **Authentication**: Users can link their Suqaba.com accounts
+2. **Job Submission**: Simulations are submitted to the Suqaba cloud platform
+3. **Status Monitoring**: Real-time updates on simulation progress
+4. **Results Retrieval**: Download and visualize simulation results
+5. **Quality Oracle**: Access to certified error verification metrics
+
+### Suqaba Account Setup
+
+1. Create an account at [suqaba.com/signup](https://suqaba.com/signup)
+2. In the web UI, go to Profile and link your Suqaba account
+3. Your authentication token will be securely stored for API access
+
+## Supported File Formats
+
+### Input Files
+- **STEP** (.step, .stp) - CAD geometry files
+- **IGES** (.iges, .igs) - CAD geometry files  
+- **FEM Input** (.inp, .dat) - Finite element mesh files
+
+### Output Files
+- **Results** - Displacement and stress fields
+- **Quality Certificate** - Error verification report
+- **Mesh Data** - Refined mesh information
+
+## Development
+
+### Frontend Development
+
+```bash
+cd web-ui
+
+# Start development server with hot reload
+npm start
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+### Backend Development
+
+```bash
+cd backend
+
+# Start with auto-reload
+uvicorn main:app --reload
+
+# Run tests
+pytest
+
+# Format code
+black .
+isort .
+```
+
+### Adding New Features
+
+1. **Frontend**: Add new pages in `src/pages/` and components in `src/components/`
+2. **Backend**: Add new routes in `app/api/routes/` and models in `app/models/`
+3. **Database**: Create migrations with Alembic for schema changes
+
+## Deployment
+
+### Production Deployment
+
+1. **Frontend**: Build and deploy to static hosting (Vercel, Netlify, etc.)
+2. **Backend**: Deploy to cloud platform (AWS, GCP, Heroku, etc.)
+3. **Database**: Use managed PostgreSQL service
+4. **Environment**: Update environment variables for production
+
+### Docker Deployment (Optional)
+
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+- **Documentation**: [Suqaba Tutorials](https://youtube.com/playlist?list=PLDs89bTacmzVPuK0SwfxOo5KqCiULLm3x)
+- **Suqaba Website**: [suqaba.com](https://suqaba.com)
+- **Issues**: Create an issue on GitHub for bug reports or feature requests
+- **Email**: support@suqaba.com for Suqaba solver-related questions
+
+## Acknowledgments
+
+- **FreeCAD Project**: This UI builds upon the excellent FreeCAD platform
+- **Suqaba Team**: For providing the innovative certified error verification solver
+- **Open Source Community**: For the amazing tools and libraries that make this possible
+
+---
+
+**Note**: This web UI is designed to complement the existing Suqaba solver and FreeCAD integration. For the full desktop experience with 3D modeling capabilities, please refer to the main Suqaba distribution.
